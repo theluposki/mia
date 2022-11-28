@@ -15,6 +15,7 @@ app.use(morgan('tiny'))
 
 InitializeDatabase()
 
+app.use(express.static('src/public'))
 app.use('/user', UserRouter)
 
 app.get('/', (req,res) => {
