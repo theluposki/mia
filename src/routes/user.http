@@ -1,0 +1,15 @@
+
+
+GET http://localhost:3000/user HTTP/1.1
+
+###
+POST http://localhost:3000/user HTTP/1.1
+content-type: application/json
+
+{
+  "name": "Dean Winchester",
+  "nickname": "dean",
+  "email": "dean@mail.com",
+  "password": "Supermario2012#"
+}
+
