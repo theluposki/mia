@@ -15,11 +15,7 @@ app.use(morgan('tiny'))
 
 InitializeDatabase()
 
-app.use(express.static('src/public'))
-app.use('/api/user', UserRouter)
-
-app.get('/', (req,res) => {
-  res.status(200).json({ messagem: "OK"})
-})
+app.use('/', express.static('src/public'))
+app.use('/user', UserRouter)
 
 export default app
