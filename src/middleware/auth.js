@@ -33,7 +33,7 @@ export default (req, res, next) => {
     });
   }
 
-  jwt.verify(token, config.secret, (error, decoded) => {
+  jwt.verify(token, config.secret, async (error, decoded) => {
     if (error) {
       return res.status(401).json({
         status: 401,
@@ -41,7 +41,9 @@ export default (req, res, next) => {
         error: "Token invalid",
       });
     }
+
     req.userId = decoded.id;
+    
     return next();
   });
 };

@@ -3,7 +3,8 @@ import cors from 'cors'
 import morgan from 'morgan'
 
 import { InitializeDatabase } from './models/index.js'
-import UserRouter from './routes/user.js'
+import UserRouter from './routes/users.js'
+import ProfileRouter from './routes/profiles.js'
 
 const app = express()
 
@@ -17,5 +18,7 @@ InitializeDatabase()
 
 app.use('/', express.static('src/public'))
 app.use('/users', UserRouter)
+app.use('/profiles', ProfileRouter)
+
 
 export default app

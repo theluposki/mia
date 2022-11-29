@@ -25,7 +25,7 @@ export const UserController = {
         return res.status(400).json({ error: "Invalid password." })
       }
 
-      const token = jwt.sign({ id: existingUser._id }, config.secret, {
+      const token = jwt.sign({ id: existingUser.id }, config.secret, {
         expiresIn: 86400
       })
 
@@ -50,6 +50,13 @@ export const UserController = {
         const messageError = "to register you need some essential data. [ name, nickname, email, password ]"
         return res.status(400).json({ error: messageError })
       }
+
+      const existingUser = await UserRepository.getOneByEmail(email)
+
+      if (existingUser) {
+        return res.status(400).json({ error: "User already exists" })
+      }
+
 
       const regexEmail = /\S+@\S+\.\S+/
       
