@@ -5,6 +5,9 @@ export const UserRepository = {
     return Users.insert(body)
   },
   async getUsers() {
-    return Users.readAll()
+    return await Users.readAll()
+  },
+  async getOneByEmail(email){
+    return await Users.getOneByEmail(email)
   }
 }

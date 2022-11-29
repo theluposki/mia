@@ -3,5 +3,6 @@ dotenv.config()
 
 export default {
   port: process.env.PORT || 3000,
-  host: "localhost"
+  host: "localhost",
+  secret: process.env.SECRET
 }

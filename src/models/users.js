@@ -33,8 +33,39 @@ export const Users = {
 
   async readAll() {
     try {
-      return openDb().then((db) => {
-        return db.all("SELECT * FROM users;").then(data => data);
+      return openDb().then(async (db) => {
+        const data = await db.all("SELECT * FROM users;");
+        return data;
+      });
+    } catch {
+      return "search error"
+    }
+  },
+  async getOneByEmail(email) {
+    try {
+      return openDb().then(async (db) => {
+        const data = await db.get("SELECT * FROM users WHERE email=?;", [email]);
+        return data;
+      });
+    } catch {
+      return "search error"
+    }
+  },
+  async getOneById(id) {
+    try {
+      return openDb().then(async (db) => {
+        const data = await db.get("SELECT * FROM users WHERE id=?;", [id]);
+        return data;
+      });
+    } catch {
+      return "search error"
+    }
+  },
+  async getOneByNickName(nickname) {
+    try {
+      return openDb().then(async (db) => {
+        const data = await db.get("SELECT * FROM users WHERE nickname=?;", [nickname]);
+        return data;
       });
     } catch {
       return "search error"

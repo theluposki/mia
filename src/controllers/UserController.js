@@ -1,9 +1,46 @@
 import bcrypt from "bcryptjs"
+import jwt from "jsonwebtoken"
 import { randomUUID } from "node:crypto" 
 import { UserRepository } from "../repositories/UserRepository.js"
+import config from "../config.js"
 
 export const UserController = {
-  
+  async auth(req,res) {
+    const { email, password } = req.body
+
+    try {
+      if (!email || !password ) {
+        const messageError = "enter email and password"
+        return res.status(400).json({ error: messageError })
+      }
+      
+      const existingUser = await UserRepository.getOneByEmail(email)
+
+      if (!existingUser) {
+        return res.status(400).json({ error: "User not found." })
+      }
+
+      
+      if (!(await bcrypt.compare(password, existingUser.password))) {
+        return res.status(400).json({ error: "Invalid password." })
+      }
+
+      const token = jwt.sign({ id: existingUser._id }, config.secret, {
+        expiresIn: 86400
+      })
+
+      return res.status(200).json({
+        token,
+        msg: "Authenticated successfully!"
+      })
+
+
+    } catch (error) {
+      res.status(400).json({ error: "Unable to authenticate."})
+    }
+  },
+
+
   async registerUser(req, res) {
     const { name, nickname, email, password } = req.body
     

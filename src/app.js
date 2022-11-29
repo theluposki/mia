@@ -16,6 +16,6 @@ app.use(morgan('tiny'))
 InitializeDatabase()
 
 app.use('/', express.static('src/public'))
-app.use('/user', UserRouter)
+app.use('/users', UserRouter)
 
 export default app
