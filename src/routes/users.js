@@ -8,5 +8,6 @@ const router = Router()
 router.post('/auth', UserController.auth)
 router.post('/', UserController.registerUser)
 router.get('/', Auth, UserController.getUsers)
+router.get('/my', Auth, UserController.getMyUser)
 
 export default router

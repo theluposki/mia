@@ -89,10 +89,22 @@ export const UserController = {
   },
 
 
+  async getMyUser(req,res) {
+    try {
+      const user = await UserRepository.getMyUser(req.userId)
+      return res.status(200).json(user)
+    } catch (error) {
+      return res.status(400).json({ error: "Could not find user."})
+    }
+  },
 
 
   async getUsers(req, res) {
-    const user = await UserRepository.getUsers()
-    res.status(200).json(user)
+    try {
+      const user = await UserRepository.getUsers()
+      res.status(200).json(user)
+    } catch (error) {
+      return res.status(400).json({ error: "Unable to fetch users."})
+    }
   }
 }

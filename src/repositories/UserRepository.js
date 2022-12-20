@@ -7,6 +7,9 @@ export const UserRepository = {
   async getUsers() {
     return await Users.readAll()
   },
+  async getMyUser(id) {
+    return await Users.getOneById(id)
+  },
   async getOneByEmail(email){
     return await Users.getOneByEmail(email)
   }

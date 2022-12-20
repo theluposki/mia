@@ -54,7 +54,9 @@ export const Users = {
   async getOneById(id) {
     try {
       return openDb().then(async (db) => {
-        const data = await db.get("SELECT * FROM users WHERE id=?;", [id]);
+        const data = await db.get(`
+            SELECT id, name, nickname, email, create_at 
+            FROM users WHERE id=?;`, [id]);
         return data;
       });
     } catch {

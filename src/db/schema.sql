@@ -1,4 +1,4 @@
--- Active: 1669747657104@@127.0.0.1@3306
+-- Active: 1671493677988@@127.0.0.1@3306
 CREATE TABLE IF NOT EXISTS users (
   id TEXT PRIMARY KEY UNIQUE,
   name TEXT,
@@ -36,3 +36,15 @@ FROM profiles;
 
 SELECT *
 FROM profiles WHERE user_id="b95cdae4-d36b-4071-ac05-1fe923b8456f";
+
+
+CREATE TABLE IF NOT EXISTS friends (
+  id TEXT PRIMARY KEY UNIQUE,
+  nickname_ref TEXT NOT NULL,
+  user_id TEXT NOT NULL,
+  create_at DATE DEFAULT (datetime('now', 'localtime')),
+  Foreign Key (nickname_ref) REFERENCES users(nickname),
+  Foreign Key (user_id) REFERENCES users(id)
+);
+
+SELECT * FROM friends WHERE user_id = "b95cdae4-d36b-4071-ac05-1fe923b8456f"
