@@ -43,7 +43,13 @@ export const Friends = {
   async readAll(id) {
     try {
       return openDb().then(async (db) => {
-        const data = await db.all("SELECT * FROM friends WHERE user_id = ?", [id]);
+        const data = await db.all(`
+
+        SELECT u.name, f.nickname_ref AS nickname, p.img_profile FROM friends AS f
+        INNER JOIN  users AS u ON f.nickname_ref = nickname
+        INNER JOIN profiles AS p ON p.user_id = u.id 
+        WHERE f.user_id = ?;
+        `, [id]);
         return data;
       });
     } catch {

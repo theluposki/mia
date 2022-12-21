@@ -106,5 +106,13 @@ export const UserController = {
     } catch (error) {
       return res.status(400).json({ error: "Unable to fetch users."})
     }
+  },
+  async getAllbyNickNameLike(req,res) {
+    try {
+      const user = await UserRepository.getAllbyNickNameLike(req.body.nickname)
+      res.status(200).json(user)
+    } catch (error) {
+      return res.status(400).json({ error: "Unable to fetch users."})
+    }
   }
 }

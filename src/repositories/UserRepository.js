@@ -12,5 +12,8 @@ export const UserRepository = {
   },
   async getOneByEmail(email){
     return await Users.getOneByEmail(email)
+  },
+  async getAllbyNickNameLike(nickname) {
+    return await Users.getAllbyNickNameLike(nickname)
   }
 }

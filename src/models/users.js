@@ -73,4 +73,18 @@ export const Users = {
       return "search error"
     }
   },
+  async getAllbyNickNameLike(nickname) {
+    try {
+      return openDb().then(async (db) => {
+        const data = await db.all(`
+        SELECT u.name,  p.img_profile, u.nickname 
+        FROM users AS u 
+        INNER JOIN profiles AS p ON u.id = p.user_id WHERE u.nickname LIKE ?;`, 
+        [nickname+"%"]);
+        return data;
+      });
+    } catch {
+      return "search error"
+    }
+  },
 }

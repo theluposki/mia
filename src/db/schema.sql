@@ -14,6 +14,16 @@ VALUES
 SELECT *
 FROM users;
 
+SELECT u.name,  p.img_profile, u.nickname 
+FROM users AS u 
+INNER JOIN profiles AS p 
+ON u.id = p.user_id WHERE u.nickname LIKE 'k%';
+
+
+SELECT u.name, f.nickname_ref AS nickname, p.img_profile FROM friends AS f
+INNER JOIN  users AS u ON f.nickname_ref = nickname
+INNER JOIN profiles AS p ON p.user_id = u.id 
+WHERE f.user_id = "f08284dd-4d23-4825-bd10-9cd26614d3fc";
 
 CREATE TABLE IF NOT EXISTS profiles (
   id TEXT PRIMARY KEY UNIQUE,
@@ -46,5 +56,7 @@ CREATE TABLE IF NOT EXISTS friends (
   Foreign Key (nickname_ref) REFERENCES users(nickname),
   Foreign Key (user_id) REFERENCES users(id)
 );
+
+SELECT * FROM friends;
 
 SELECT * FROM friends WHERE user_id = "b95cdae4-d36b-4071-ac05-1fe923b8456f"

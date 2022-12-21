@@ -9,5 +9,7 @@ router.post('/auth', UserController.auth)
 router.post('/', UserController.registerUser)
 router.get('/', Auth, UserController.getUsers)
 router.get('/my', Auth, UserController.getMyUser)
+router.post('/nickname', Auth, UserController.getAllbyNickNameLike)
+
 
 export default router

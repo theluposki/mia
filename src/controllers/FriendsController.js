@@ -5,16 +5,15 @@ export const FriendsController = {
 
   async addFriend (req, res) {
 
-    if(req.body.userId !== req.userId) return res.status(400).json({ error: "Error adding friend"})
-
     const {
-      nicknameRef,
-      userId
+      nicknameRef
     } = req.body
     
-    const youAreAlreadyFriends = await FriendsRepository.youAreAlreadyFriends(nicknameRef, userId)
+    
+    const youAreAlreadyFriends = await FriendsRepository.youAreAlreadyFriends(nicknameRef, req.userId)
+    console.log(youAreAlreadyFriends)
 
-    if(youAreAlreadyFriends) {
+    if(youAreAlreadyFriends.length > 0) {
       return res.status(400).json({ error: "you are already friends." })
     }
 
@@ -23,12 +22,12 @@ export const FriendsController = {
       const result = await FriendsRepository.addFriend({
         id: randomUUID(),
         nicknameRef,
-        userId
+        userId: req.userId
       })
 
       return res.status(201).json({ message: result})
     } catch (error) {
-      return res.status(400).json({ error: "unable to profile"})
+      return res.status(400).json({ error: "unable to friend"})
     }
    
   },
